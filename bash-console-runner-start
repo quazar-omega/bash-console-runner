@@ -1,7 +1,23 @@
 #!/usr/bin/bash
 
-if [ "$#" -ne 1 ]; then
-    echo "Illegal number of parameters"
-fi
+function help_text {
+    printf "\nMust feed one exectubale\n\n"
+	printf "Use: bash-console-runner-start \e[32m<executable>\e[0m\n"
+}
 
-kitty -T "$1" bash-console-runner $1
+if [ $# -eq 1 ]; then
+	if [[ -f "$1" ]]; then
+		if [[ -x $(realpath "$1") ]]; then
+			kitty -T "$1" bash-console-runner $1 &
+		else
+			printf "\e[31mERROR\e[0m: file \e[31m"$(realpath "$1")"\e[0m is not an executable\e[0m\n"
+			help_text
+		fi
+	else
+		printf "\e[31mERROR\e[0m: file \e[31m"$1"\e[0m does not exist\e[0m\n"
+		help_text
+	fi
+else
+	printf "\e[31mERROR\e[0m: fed \e[31m"$#"\e[0m arguments instead of 1\e[0m\n"
+	help_text
+fi
