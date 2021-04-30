@@ -19,7 +19,6 @@ if [ $# -gt 0 ]; then
 		#	$SPAWN_TERMINAL_COMMAND
 		#else
 		#	error "file \e[31m$(command -v $1)\e[0m is not an executable\e[0m\n"
-		#	help_text
 		#fi
 		$SPAWN_TERMINAL_COMMAND
 	else
