@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-SPAWN_TERMINAL_COMMAND="kitty -T "$1" bash-console-runner $1 &"
+SPAWN_TERMINAL_COMMAND="kitty -T \"$1\" bash-console-runner $1 &"
 
 function help_text {
 	printf "\nMust feed one exectubale\n\n"
