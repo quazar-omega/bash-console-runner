@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+function print_centered {
+	[[ $# -eq 0 ]] && return 1
+
+	declare -i TERM_COLS="$(tput cols)"
+	declare -i str_len="${#1}"
+	[[ $str_len -ge $TERM_COLS ]] && {
+		echo "$1";
+		return 0;
+	}
+
+	declare -i filler_len="$(( (TERM_COLS - str_len) / 2 ))"
+	[[ $# -ge 2 ]] && ch="${2:0:1}" || ch=" "
+	filler=""
+	for (( i = 0; i < filler_len; i++ )); do
+		filler="${filler}${ch}"
+	done
+
+	printf "%s\e[30;42m %s \e[0m\e[0m%s" "$filler" "$1" "$filler"
+	[[ $(( (TERM_COLS - str_len) % 2 )) -ne 0 ]] && printf "%s" "${ch}"
+	printf "\n"
+
+	return 0
+}
+# "%s\e[32m\uE0B6\e[30;42m%s\e[0m\e[32m\uE0B4\e[0m%s"
+
+print_centered $1
+$1
+print_centered "Process terminated"
+read -p "Press enter to continue "

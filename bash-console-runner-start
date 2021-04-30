@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Illegal number of parameters"
+fi
+
+kitty -T "$1" bash-console-runner $1
