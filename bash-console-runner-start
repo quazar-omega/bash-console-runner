@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+USED_TERMINAL="kitty"
+TITLE_FLAG="-T"
+
 function help_text {
     printf "\nMust feed one exectubale\n\n"
 	printf "Use: bash-console-runner-start \e[32m<executable>\e[0m\n"
@@ -8,7 +11,7 @@ function help_text {
 if [ $# -eq 1 ]; then
 	if [[ -f "$1" ]]; then
 		if [[ -x $(realpath "$1") ]]; then
-			kitty -T "$1" bash-console-runner $1 &
+			$USED_TERMINAL $TITLE_FLAG "$1" bash-console-runner $1 &
 		else
 			printf "\e[31mERROR\e[0m: file \e[31m"$(realpath "$1")"\e[0m is not an executable\e[0m\n"
 			help_text
