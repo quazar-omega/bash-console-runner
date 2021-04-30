@@ -25,6 +25,8 @@ function print_centered {
 }
 
 print_centered $1
-$1
+RUN=${*%${!#}}
+$RUN
+printf "\n"
 print_centered "Process terminated"
 read -p "Press enter to continue "

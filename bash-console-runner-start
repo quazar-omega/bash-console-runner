@@ -1,25 +1,30 @@
 #!/usr/bin/bash
 
-SPAWN_TERMINAL_COMMAND="kitty -T \"$1\" bash-console-runner $1 &"
+SPAWN_TERMINAL_COMMAND="kitty -T \"$1\" ./bash-console-runner $* &"
 
 function help_text {
 	printf "\nMust feed one exectubale\n\n"
 	printf "Use: bash-console-runner-start \e[32m<executable>\e[0m\n"
 }
 
-if [ $# -eq 1 ]; then
-	if [[ -f "$1" ]]; then
-		if [[ -x $1 ]]; then
-			$SPAWN_TERMINAL_COMMAND
-		else
-			printf "\e[31mERROR\e[0m: file \e[31m"$1"\e[0m is not an executable\e[0m\n"
-			help_text
-		fi
+function error {
+	printf "\e[31mERROR\e[0m: $1" >> /dev/stderr
+	help_text
+	return 1
+}
+
+if [ $# -gt 0 ]; then
+	if command -v $1 > /dev/null; then
+		#if [[ -x $1 ]]; then
+		#	$SPAWN_TERMINAL_COMMAND
+		#else
+		#	error "file \e[31m$(command -v $1)\e[0m is not an executable\e[0m\n"
+		#	help_text
+		#fi
+		$SPAWN_TERMINAL_COMMAND
 	else
-		printf "\e[31mERROR\e[0m: file \e[31m"$1"\e[0m does not exist\e[0m\n"
-		help_text
+		error "command \e[31m`command -v $1`\e[0m does not exist\e[0m\n"
 	fi
 else
-	printf "\e[31mERROR\e[0m: fed \e[31m"$#"\e[0m arguments instead of 1\e[0m\n"
-	help_text
+	error "too few arguments \e[31m$#\e[0m\n"
 fi
