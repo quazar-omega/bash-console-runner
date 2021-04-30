@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+
 function print_centered {
 	[[ $# -eq 0 ]] && return 1
 
@@ -22,7 +23,6 @@ function print_centered {
 
 	return 0
 }
-# "%s\e[32m\uE0B6\e[30;42m%s\e[0m\e[32m\uE0B4\e[0m%s"
 
 print_centered $1
 $1
