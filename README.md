@@ -38,3 +38,25 @@ If you know a terminal that has not been added to the list and you wish to see i
   + `kitty -T \"$1\"`
 * [xterm](https://invisible-island.net/xterm/)
   + `xterm -title \"$1\" -e`
+
+
+## Other
+This can be used in [Visual Studio Code](https://github.com/Microsoft/vscode) as a patch to the missing feature of opening in an external terminal with build tasks.  
+### Example configuration
+```json
+"label": "C (GCC) Compile and Run",
+"type": "shell",
+"command": "gcc",
+"args": 
+[  
+  "-Wall",
+  "-g",
+  "${relativeFile}",
+  "-o",
+  "${fileBasenameNoExtension}",
+  "&&",
+  "bash-console-runner-start",
+  "-disable-nohup",
+  "./${fileBasenameNoExtension}",
+],
+```
