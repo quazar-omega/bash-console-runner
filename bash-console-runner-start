@@ -1,8 +1,14 @@
 #!/usr/bin/bash
 
 SPAWN_TERMINAL_COMMAND="xterm -title \"$1\" -e"
+
 CONF_PATH="$HOME/.config/bash-console-runner/"
 CONF_TERMINAL="terminal-emulator.conf"
+
+COMMAND_TO_RUN="$1"
+
+# options
+DISABLE_NOHUP=false
 
 function help_text {
 	printf "\nMust feed one executable\n\n"
@@ -35,14 +41,43 @@ function conf_detection {
 	fi
 }
 
+function toggle_option {
 
-if [ $# -gt 0 ]; then
-	if command -v $1 > /dev/null; then
-		conf_detection $1
-		$SPAWN_TERMINAL_COMMAND bash-console-runner $* &>/dev/null &
-		disown
+	case $1 in
+
+		"-disable-nohup")
+			DISABLE_NOHUP=true
+			;;
+		*)
+			return 1
+			;;
+	esac
+}
+
+ARG_COUNT=1
+for ARG in "$@"; do
+	if [ "${ARG:0:1}" = "-" ]; then
+		toggle_option $ARG
+		((ARG_COUNT++))
 	else
-		error "command \e[31m$1\e[0m does not exist\e[0m\n"
+		COMMAND_TO_RUN=$ARG
+		break;
+	fi
+done
+
+
+if [ $(($#-$ARG_COUNT)) -gt 0 ]; then
+	if command -v $COMMAND_TO_RUN > /dev/null; then
+		conf_detection $COMMAND_TO_RUN
+
+		if [ "$DISABLE_NOHUP" = true ]; then
+			$SPAWN_TERMINAL_COMMAND bash-console-runner ${@:ARG_COUNT}
+		else
+			nohup $SPAWN_TERMINAL_COMMAND bash-console-runner $* &>/dev/null &
+		fi
+
+	else
+		error "command \e[31m$COMMAND_TO_RUN\e[0m does not exist\e[0m\n"
 	fi
 else
 	error "too few arguments: you input \e[31m$#\e[0m arguments\n"
