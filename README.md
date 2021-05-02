@@ -2,7 +2,7 @@
 A dirty couple of bash scripts that spawn a terminal emulator with whatever executable you feed to it.  
 At the end of the execution it will print the return value and the duration of its execution.
 
-![exapmle screenshot](images/bash-console-runner-example.png)
+![example screenshot](images/bash-console-runner-example.png)
 
 ## Install
 ```bash
