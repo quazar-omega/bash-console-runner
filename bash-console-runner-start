@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 
-SPAWN_TERMINAL_COMMAND="kitty -T \"$1\" bash-console-runner"
+SPAWN_TERMINAL_COMMAND="xterm -title \"$1\" -e"
+CONF_PATH="$HOME/.config/bash-console-runner/"
+CONF_TERMINAL="terminal-emulator.conf"
 
 function help_text {
 	printf "\nMust feed one executable\n\n"
@@ -13,9 +15,31 @@ function error {
 	return 1
 }
 
+function conf_detection {
+	# $1 command_name
+	if [ ! -d $CONF_PATH ]; then
+		mkdir $CONF_PATH
+	fi
+	if [ ! -f "$CONF_PATH$CONF_TERMINAL" ]; then
+		cp /etc/bash-console-runner/$CONF_TERMINAL $CONF_PATH
+	fi
+
+	while read CONF_LINE; do
+		if [ ${CONF_LINE:0:1} != "#" ]; then
+			break;
+		fi
+	done < "$CONF_PATH$CONF_TERMINAL"
+
+	if [ -n "$CONF_LINE" ]; then
+		SPAWN_TERMINAL_COMMAND=${CONF_LINE/"\$1"/$1}
+	fi
+}
+
+
 if [ $# -gt 0 ]; then
 	if command -v $1 > /dev/null; then
-		$SPAWN_TERMINAL_COMMAND $* &>/dev/null & 
+		conf_detection $1
+		$SPAWN_TERMINAL_COMMAND bash-console-runner $* &>/dev/null &
 		disown
 	else
 		error "command \e[31m$1\e[0m does not exist\e[0m\n"

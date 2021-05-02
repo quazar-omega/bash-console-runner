@@ -33,7 +33,6 @@ RETURN_NUMBER=$?
 printf "\n"
 
 ELAPSED_TIME=$(cat "$TEMP_TIME_RECORD" | grep -o '[0-9]\+:[0-9]\+.[0-9]\+')
-#ELAPSED_TIME=$(echo "$ELAPSED_TIME" | grep -o '[0-9]\+:[0-9]\+.[0-9]\+')
 if [[ $RETURN_NUMBER -eq 0 ]]; then
 	print_centered "Process returned $RETURN_NUMBER" "\e[42m" "elasped: $ELAPSED_TIME" "\e[30;43m"
 else
