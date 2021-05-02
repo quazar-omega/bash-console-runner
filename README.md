@@ -2,6 +2,8 @@
 A dirty couple of bash scripts that spawn a terminal emulator with whatever executable you feed to it.  
 At the end of the execution it will print the return value and the duration of its execution.
 
+![exapmle screenshot](bash-console-runner-example.png)
+
 ## Install
 ```bash
 git clone https://github.com/Fabrizio-Volonte/bash-console-runner.git
