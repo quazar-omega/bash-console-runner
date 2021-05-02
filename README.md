@@ -12,7 +12,7 @@ sudo ./install
 ```
 
 ## Run
-When you want to run any executable just do:  
+To use the script just type:  
 `bash-console-runner-start <executable>`
 ### Example
 folder structure:  
