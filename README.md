@@ -14,4 +14,4 @@ Different terminals handle this in pretty different ways, so you have to edit th
 * gnome terminal
   + `gnome-terminal --title=\"$1\" -- bash-console-runner`
 * xterm
-  + `xterm -hold -e bash-console-runner`
+  + `xterm -e bash-console-runner`
