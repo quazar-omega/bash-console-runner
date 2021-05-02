@@ -34,9 +34,9 @@ printf "\n"
 
 ELAPSED_TIME=$(cat "$TEMP_TIME_RECORD" | grep -o '[0-9]\+:[0-9]\+.[0-9]\+')
 if [[ $RETURN_NUMBER -eq 0 ]]; then
-	print_centered "Process returned $RETURN_NUMBER" "\e[42m" "elapsed: $ELAPSED_TIMEs" "\e[30;43m"
+	print_centered "Process returned $RETURN_NUMBER" "\e[42m" "elapsed: $ELAPSED_TIME s" "\e[30;43m"
 else
-	print_centered "Process returned $RETURN_NUMBER" "\e[41m" "elapsed: $ELAPSED_TIMEs" "\e[30;43m"
+	print_centered "Process returned $RETURN_NUMBER" "\e[41m" "elapsed: $ELAPSED_TIME s" "\e[30;43m"
 fi
 
 printf "Press \e[30;47m ENTER ↲ \e[0m to continue: "
