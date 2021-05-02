@@ -8,10 +8,10 @@ To use your terminal emulator of choice, edit this part:
 
 Different terminals handle this in pretty different ways, so you have to edit the whole command with the approriate one for your terminal.  ¯\\\_(ツ)_/¯ 
 
-### Examples
+### Known terminal commands
 * kitty
-  + `kitty -T \"$1\" bash-console-runner`
+  + `kitty -T \"$1\"`
 * gnome terminal
-  + `gnome-terminal --title=\"$1\" -- bash-console-runner`
+  + `gnome-terminal --title=\"$1\" --`
 * xterm
-  + `xterm -e bash-console-runner`
+  + `xterm -title \"$1\" -e`
