@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-SPAWN_TERMINAL_COMMAND="kitty -T \"$1\" bash-console-runner $* &"
+SPAWN_TERMINAL_COMMAND="kitty -T \"$1\" bash-console-runner"
 
 function help_text {
 	printf "\nMust feed one executable\n\n"
@@ -15,7 +15,8 @@ function error {
 
 if [ $# -gt 0 ]; then
 	if command -v $1 > /dev/null; then
-		$SPAWN_TERMINAL_COMMAND
+		$SPAWN_TERMINAL_COMMAND $* &>/dev/null & 
+		disown
 	else
 		error "command \e[31m$1\e[0m does not exist\e[0m\n"
 	fi
