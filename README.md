@@ -8,7 +8,7 @@ At the end of the execution it will print the return value and the duration of i
 ```bash
 git clone https://github.com/Fabrizio-Volonte/bash-console-runner.git
 cd bash-console-runner
-sudo ./install
+sudo ./install.sh
 ```
 
 ## Run
